@@ -1,26 +1,14 @@
 ---
-// const {
+// const ENVIRONMENT = import.meta.env.PUBLIC_ENVIRONMENT
+// console.log( "ENV IS ", ENVIRONMENT )
 
-// 	ENVIRONMENT,
-// 	ENDPOINT
-
-// } = import.meta.env
-
-import '@/styles/globals.css'
 // UI
 import { Button } from "@/components/ui/button"
----
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-		<Button>hello</Button>
-	</body>
-</html>
+// LAYOUTS
+import Layout from "../layouts/layout/index.astro"
+---
+<Layout>
+	<h1 class="font-bold">Astro</h1>
+	<Button>hello</Button>
+</Layout>
