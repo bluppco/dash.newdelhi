@@ -1,0 +1,37 @@
+---
+
+// IMPORT PACKAGES
+import { Icon } from "astro-icon/components"
+
+// GET PROPS
+const { task, author } = Astro.props
+
+---
+<div class="bg-zinc-200 border border-zinc-300 p-2 rounded space-y-2">
+    <div class="flex gap-2 justify-between">
+        {
+
+            task.data.tag === "feat" &&
+            <div class="py-0.1 flex items-center justify-center rounded border border-orange-400 bg-orange-300 px-2 text-xs font-light">
+                FEAT
+            </div>
+
+        }
+        <div class="size-6 overflow-hidden rounded-full bg-zinc-300">
+            <img
+                src={ author[0].data.image }
+                class="h-full w-full"
+            />
+        </div>
+    </div>
+    <div class="text-sm font-semibold">#{ task.slug } { task.data.title }</div>
+    <div class="text-sm font-light">{ task.data.description }</div>
+    <div class="flex items-center gap-2">
+        <Icon name="create-time" class="size-3" />
+        <div class="group relative w-fit text-[10px] font-thin">{ task.data.create_time }</div>
+    </div>
+    <div class="flex items-center gap-2">
+        <Icon name="update-time" class="size-3" />
+        <div class="group relative w-fit text-[10px] font-thin">{ task.data.update_time }</div>
+    </div>
+</div>

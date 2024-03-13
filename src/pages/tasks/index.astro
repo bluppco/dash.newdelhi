@@ -1,0 +1,100 @@
+---
+
+// PACKAGES
+import { Icon } from "astro-icon/components"
+import { getCollection } from "astro:content"
+
+// GET COLLECTION
+const taskEntries = await getCollection("tasks")
+const authors = await getCollection("authors")
+
+// FILTER DATA
+const todo_tasks = taskEntries.filter((data) => data.data.list === "to-do").sort( (a, b) => new Date(b.data.create_time) - new Date(a.data.create_time))
+const doing_tasks = taskEntries.filter((data) => data.data.list === "doing").sort((a, b) => new Date(b.data.create_time) - new Date(a.data.create_time))
+const done_tasks = taskEntries.filter((data) => data.data.list === "done").sort((a, b) => new Date(b.data.create_time) - new Date(a.data.create_time))
+const discussion_tasks = taskEntries.filter((data) => data.data.list === "discussion").sort( (a, b) => new Date(b.data.create_time) - new Date(a.data.create_time))
+
+// COMPONENTS
+import Column from "@/components/tasks/column/index.astro"
+import Task from "@/components/tasks/task/index.astro"
+
+---
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>{"Tasks | Dashboard New Delhi"}</title>
+        <meta name="title" content="Tasks | Dashboard New Delhi" />
+    </head>
+    <body class="flex gap-4 overflow-x-scroll p-4 font-mono">
+        <Column>
+            <div slot="title" class="text-sm font-semibold">To do</div>
+            <div slot="tasks" class="space-y-2 p-2">
+                {
+
+                    todo_tasks.map((value) => {
+
+                        const author = authors.filter( ( author ) => value.data.author === author.slug )
+                        return (
+                            <Task task={ value } author={ author } />
+                        )
+
+                    })
+
+                }
+            </div>
+        </Column>
+        <Column>
+            <div slot="title" class="text-sm font-semibold">Doing</div>
+            <div slot="tasks" class="space-y-2 p-2">
+                {
+
+                    doing_tasks.map((value) => {
+
+                        const author = authors.filter( ( author ) => value.data.author === author.slug )
+                        return (
+                            <Task task={ value } author={ author } />
+                        )
+
+                    })
+
+                }
+            </div>
+        </Column>
+        <Column>
+            <div slot="title" class="text-sm font-semibold">Done</div>
+            <div slot="tasks" class="space-y-2 p-2">
+                {
+
+                    done_tasks.map((value) => {
+
+                        const author = authors.filter( (author) => value.data.author === author.slug )
+                        return (
+                            <Task task={ value } author={ author } />
+                        )
+
+                    })
+
+                }
+            </div>
+        </Column>
+        <Column>
+            <div slot="title" class="text-sm font-semibold">Discussion</div>
+            <div slot="tasks" class="space-y-2 p-2">
+                {
+
+                    discussion_tasks.map((value) => {
+
+                        const author = authors.filter( (author) => value.data.author === author.slug )
+                        return (
+                            <Task task={ value } author={ author } />
+                        )
+
+                    })
+
+                }
+            </div>
+        </Column>
+    </body>
+</html>
